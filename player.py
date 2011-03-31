@@ -1,12 +1,13 @@
 from region_observer import RegionObserver
+import time
 
 class Player:
 
   def __init__(self, name):
     self.name = name
-    #self.state_machine = PlayerStateMachine()
 
   def set_hand_region(self, r):
+    self.hand_region = r
     self.hand_region_observer = RegionObserver(r)
 
   def start_observing(self):
@@ -16,9 +17,7 @@ class Player:
     self.hand_region_observer.stop_observing()
 
   def hand_changed(self, event):
-    text = event.region.text()
-    if text != '':
-      self.count = text
-      print self.name + ": "
-      print self.count
-
+    print event
+    event.match.highlight()
+    time.sleep(1)
+    event.match.highlight()
