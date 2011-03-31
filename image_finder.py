@@ -1,6 +1,6 @@
 class ImageFinder:
 
-  def find_image_in_region(self, image, region):
+  def find_all_images_in_region(self, image, region):
     r = [] 
     matches = region.findAll(image)
 
@@ -14,3 +14,10 @@ class ImageFinder:
 
     matches.destroy()
     return r
+
+  def find_image_in_region(self, image, region):
+    match = region.find(image)
+    if match != None:
+      return match
+    else:
+      return []

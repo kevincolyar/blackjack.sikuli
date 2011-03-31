@@ -14,18 +14,36 @@ player.hand_region.setFindFailedResponse(SKIP)
 
 image_finder = ImageFinder()
 
-while True:
-  matches = []
-  cards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
-  for c in cards:
-    matches += image_finder.find_image_in_region(c + ".png", player.hand_region)
+def changed(event):
+  print "Changed"
+  for ch in event.changes:
+    matches = []
+    cards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
+    for c in cards:
+      ch.setFindFailedResponse(SKIP)
+      matches += image_finder.find_image_in_region(c + ".png", ch)
 
-  for match in matches:
-    match.highlight()
-  wait(1)
-  for match in matches:
-    match.highlight()
+    for match in matches:
+      match.highlight()
+    wait(1)
+    for match in matches:
+      match.highlight()
 
-  #matches.destroy()
-  #wait(1)
+player.hand_region.onChange(50, changed)
+player.hand_region.observe(background=True)
 
+#while True:
+#  matches = []
+#  cards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
+#  for c in cards:
+#    matches += image_finder.find_image_in_region(c + ".png", player.hand_region)
+#
+#  for match in matches:
+#    match.highlight()
+#  wait(1)
+#  for match in matches:
+#    match.highlight()
+#
+#  #matches.destroy()
+#  #wait(1)
+#
